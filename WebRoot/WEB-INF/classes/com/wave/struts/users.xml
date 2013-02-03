@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>	
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!-- 指定默认编码集 ，作用于HttpServletRequest的setCharacterEncoding（）和freemarker，vilocity的输出 -->
+	<constant name="struts.configuration.xmlreload" value="true" />
+	<!-- 当struts配置文件修改时是否自动加载 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 开发模式下打印详细的错误信息 -->
+	<constant name="struts.ui.theme" value="xhtml" />
+	<constant name="struts.action.extension" value="json" />
+		<package name="default" extends="struts-default">
+		<default-action-ref name="notFound" />
+		<action name="notFound">
+			<result>/index.jsp</result>
+		</action>
+	</package>
+	<package name="users" namespace="/users" extends="json-default">
+		<action name="user_*" class="com.wave.action.users.UserAction" method="{1}">
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="create" class="com.wave.action.users.CreateAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="show" class="com.wave.action.users.ShowAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		
+	</package>
+	<package name="account" namespace="/account" extends="json-default">
+		<action name="verify_credentials" class="com.wave.action.users.Verify_credentialsAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="update_profile" class="com.wave.action.users.Update_profileAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="set_password" class="com.wave.action.users.SetPasswordAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="update_avatar" class="com.wave.action.users.Update_avatarAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		
+	</package>
+	
+</struts>    

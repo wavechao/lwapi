@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wave.dao.SelectionMapper" >
+  <resultMap id="BaseResultMap" type="com.wave.model.Selection" >
+    <id column="selectionid" property="selectionid" jdbcType="INTEGER" />
+    <result column="studentid" property="studentid" jdbcType="INTEGER" />
+    <result column="titleid" property="titleid" jdbcType="INTEGER" />
+    <result column="article_score" property="articleScore" jdbcType="TINYINT" />
+    <result column="oral_score" property="oralScore" jdbcType="TINYINT" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="create_at" property="createAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="testSelection" resultMap="BaseResultMap">
+   	select * from theses_selection;
+  </select>
+  
+  <select id="querySelectionBySid" resultMap="BaseResultMap">
+  	select * from theses_selection where studentid=#{studentid} limit 1;
+  </select>
+    <select id="querySelection" resultMap="BaseResultMap">
+  	select * from theses_selection where selectionid=#{selectionid} ;
+  </select>
+  
+  <insert id="addSelection" >
+    insert into theses_selection (titleid,studentid) values(#{titleid},#{studentid})
+    <selectKey resultType="java.lang.Integer" keyProperty="selectionid"
+			order="AFTER">
+			SELECT @@IDENTITY
+		</selectKey>
+  </insert>
+  
+  <delete id="deleteSelection">
+  	delete from theses_selection where selectionid=#{id}
+  </delete>
+  
+  <!-- 更新论文分数 -->
+  <update id="updateArticleScore">
+  	update theses_selection set article_score=#{article_score} where selectionid=#{selectionid}
+  </update>
+  
+  <!-- 更新答辩分数 -->
+  <update id="updateOralScore">
+  	update theses_selection set oral_score=#{oral_score} where selectionid=#{selectionid}
+  </update>
+  
+</mapper>

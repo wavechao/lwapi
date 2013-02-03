@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wave.dao.TitleMapper" >
+  <resultMap id="BaseResultMap" type="com.wave.model.Title" >
+    <id column="titleid" property="titleid" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="teacherid" property="teacherid" jdbcType="INTEGER" />
+    <result column="student_num" property="studentNum" jdbcType="TINYINT" />
+    <result column="deptid" property="deptid" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+    <result column="create_at" property="createAt" jdbcType="TIMESTAMP" />
+    <result column="available_majors" property="availableMajors" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="require_info" property="requireInfo" jdbcType="VARCHAR" />
+  </resultMap>
+ <select id="testTitle" resultMap="BaseResultMap">
+ 	select * from theses_titles;
+ </select>
+ <insert id="addTitle" >
+ 	insert into theses_titles (title,teacherid,student_num,deptid,available_majors,description,require_info,state)
+ 	values(#{title},#{teacherid},#{studentNum},#{deptid},#{availableMajors},#{description},#{requireInfo},state);
+ 	<selectKey resultType="java.lang.Integer" keyProperty="titleid"
+			order="AFTER">
+			SELECT @@IDENTITY
+		</selectKey>
+ </insert>
+  <select id="getTitle" resultMap="BaseResultMap">
+ 	select * from theses_titles where titleid=#{id};
+ </select>
+  <select id="getTitleByState" resultMap="BaseResultMap">
+ 	select * from theses_titles where state=2 and teacherid=#{teacherid};
+ </select>
+  <select id="getTitleByStateDept" resultMap="BaseResultMap">
+ 	select * from theses_titles where state=1 and deptid=#{deptid};
+ </select>
+ <select id="getMyTitle" resultMap="BaseResultMap"><!--<like>#{sname}</like>  -->
+ 
+ select * from theses_titles where available_majors like #{id} and state=1;
+ </select>
+ <update id="pass">
+ 	update theses_titles set state=#{pass} where titleid=#{id};
+ </update>
+ <update id="plus">
+ 	update theses_titles set student_num=student_num-1 where titleid=#{id};
+ </update>
+</mapper>

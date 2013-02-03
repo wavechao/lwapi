@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wave.dao.DepartmentsMapper">
+	<resultMap id="Departments" type="com.wave.model.Department">
+		<id column="deptid" property="deptid" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="directorid" property="directorid" jdbcType="INTEGER" />
+		<result column="schoolname" property="schoolname" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="addDepartment" parameterType="departments">
+		  insert into theses_departments 
+		  <if test="directorid!=0">
+		  (name,directorid,schoolname)VALUES(#{name},#{directorid},#{schoolname})
+		  </if>
+		  <if test="directorid==0">
+		  (name,schoolname)VALUES(#{name},#{schoolname})
+		  </if>
+		  <selectKey resultType="java.lang.Integer" keyProperty="deptid"
+			order="AFTER">
+			SELECT @@IDENTITY
+		</selectKey>
+	</insert>
+	<update id="updateDepartment" parameterType="map">
+		  update  theses_departments set schoolname=#{schoolname},name=#{name},directorid=#{directorid} where deptid=#{deptid};
+	</update>
+	<select id="queryAllDepartment" resultType="departments">
+		select * from theses_departments ;  
+	</select>
+	<select id="queryDepartmentById" resultType="departments">
+		select * from theses_departments where deptid=#{deptid};  
+	</select>
+	<delete id="deleteDepartment">
+		delete from theses_departments where deptid=#{deptid}; 
+	</delete>
+</mapper>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wave.dao.UserMapper">
+	<resultMap id="BaseResultMap" type="com.wave.model.User">
+		<id column="userid" property="userid" jdbcType="INTEGER" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="screenname" property="screenname" jdbcType="VARCHAR" />
+		<result column="gender" property="gender" jdbcType="TINYINT" />
+		<result column="usertype" property="level" jdbcType="TINYINT" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="avatar_url" property="avatar" jdbcType="VARCHAR" />
+		<result column="avatar_thumb_url" property="avatar_thumb"
+			jdbcType="VARCHAR" />
+		<result column="department_id" property="department_id" jdbcType="INTEGER" />
+		<result column="major_id" property="major_id" jdbcType="INTEGER" />
+	</resultMap>
+	<select id="test" parameterType="string" resultMap="BaseResultMap">
+		select * from theses_users;
+	</select>
+	<select id="queryUserByUsername" parameterType="string" resultMap="BaseResultMap">
+		select * from theses_users where username=#{username};
+	</select>
+	<select id="queryTeacher"  resultMap="BaseResultMap">
+		select * from theses_users where (usertype=30 or usertype=40) and userid=#{userid};
+	</select>
+	<select id="login" parameterType="string" resultMap="BaseResultMap">
+		select *
+		from theses_users where username=#{myname} and password=#{pwd};
+	</select>
+	<select id="findUser" parameterType="int" resultMap="BaseResultMap">
+		select *
+		from theses_users where userid=#{userid} ;
+	</select>
+	<select id="findUserById" parameterType="long" resultMap="BaseResultMap">
+		select
+		* from theses_users where userid=#{userid};
+	</select>
+	<select id="getUserByLevel" resultMap="BaseResultMap">
+	   <if test="major_id!=0">
+	   		select * from theses_users where usertype=#{level} and major_id=#{major_id}
+	   </if>
+	   <if test="major_id==0">
+	   		select * from theses_users where usertype=#{level} and department_id=#{depart_id}
+	   </if>
+	
+	</select>
+	<select id="getUserBiggerLevel" resultMap="BaseResultMap">
+	
+	   <if test="major_id!=0">
+	   <![CDATA[
+	   		select * from theses_users where usertype>=#{level} and usertype<=#{userlevel} and major_id=#{major_id}
+	   		]]>
+	   </if>
+	   <if test="major_id==0">
+	   <![CDATA[
+	   		select * from theses_users where usertype>=#{level} and department_id=#{depart_id}
+	   		]]>
+	   </if>
+	
+	</select>
+	<select id="getUserLitterLevel" resultMap="BaseResultMap">
+	
+	   <if test="major_id!=0">
+	    <![CDATA[
+	   		select * from theses_users where usertype<=#{level} and major_id=#{major_id}
+	   		]]>
+	   </if>
+	   <if test="major_id==0">
+	   <![CDATA[
+	   		select * from theses_users where usertype<=#{level} and department_id=#{depart_id}
+	   	]]>
+	   </if>
+	
+	</select>
+	<delete id="deleteUser" parameterType="long">
+		delete from theses_users
+		where userid=#{userid};
+	</delete>
+	<insert id="addUser" parameterType="string">
+
+		insert into theses_users
+		(username,password,screenname,gender,usertype,department_id,major_id)
+		values(#{username},#{password},#{screenname},#{gender},#{level},#{department_id},#{major_id});
+		<selectKey resultType="java.lang.Integer" keyProperty="userid"
+			order="AFTER">
+			SELECT @@IDENTITY
+		</selectKey>
+	</insert>
+
+	<update id="updateUser">
+		update theses_users set
+	<!--	<if test="screenname!=null and screenname!='' ">-->
+			screenname=#{screenname},
+	<!-- 	</if>
+		<if test="gender!=null and gender!='' ">-->
+			gender=#{gender},
+	<!-- 	</if>
+		<if test="email!=null and email!='' ">-->
+			email=#{email}
+	<!-- 	</if>
+		 
+		<if test="password!=null and password!=''">
+		password=#{password},
+		</if>
+		-->
+		where
+		userid=#{userid}
+	</update>
+	<update id="updateUserAll">
+		update theses_users set
+	<!--	<if test="screenname!=null and screenname!='' ">-->
+			screenname=#{screenname},
+	<!-- 	</if>
+		<if test="gender!=null and gender!='' ">-->
+			gender=#{gender},
+	<!-- 	</if>
+		<if test="email!=null and email!='' ">-->
+			email=#{email},
+	<!-- 	</if>
+		 	
+		<if test="password!=null and password!=''">
+		password=#{password},
+		</if>
+		-->
+		major_id=#{major_id},
+		department_id=#{department_id},
+		where
+		userid=#{userid}
+	</update>
+	<update id="updateUserPassword">
+		update theses_users set password=#{password}
+		where userid=#{userid}
+	</update>
+	<update id="updateUserPicUrl">
+		update theses_users set
+		avatar_thumb_url=#{avatar_thumb},avatar_url=#{avatar}
+		where userid=#{userid}
+	</update>
+	<select id="getTeachers" resultMap="BaseResultMap" >
+		select * from theses_users where department_id=#{department_id} and (usertype=30 or usertype=40);
+	</select>
+	<update id="levelup">
+	 update theses_users set usertype=40 where userid=#{userid};
+	</update>
+	<update id="levelupTeacher" >
+	 update theses_users set usertype=40 where userid in 
+	<foreach item="productNo" index="index" collection="lists">
+
+            #{productNo}
+
+    </foreach>
+	</update>
+	<update id="leveldown">
+	update theses_users set usertype=30 where userid=#{userid}
+	</update>
+	<update id="leveldownTeacher">
+	update theses_users set usertype=30 where userid in (#{idStr})
+	</update>
+</mapper>

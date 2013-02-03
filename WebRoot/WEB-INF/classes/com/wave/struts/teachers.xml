@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>	
+	<package name="teachers" namespace="/teachers" extends="json-default">
+		<action name="show" class="com.wave.action.teachers.ShowAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="levelup" class="com.wave.action.teachers.LevelUpAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="leveldown" class="com.wave.action.teachers.LevelDownAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+	</package>
+</struts>    

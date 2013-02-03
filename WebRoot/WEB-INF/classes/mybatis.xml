@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="user" type="com.wave.model.User"/>
+		<typeAlias alias="departments" type="com.wave.model.Department"/>
+		<typeAlias alias="major" type="com.wave.model.Major"/>
+		<typeAlias alias="notification" type="com.wave.model.Notification"/>
+		<typeAlias alias="selection" type="com.wave.model.Selection"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/wave/mapping/title.xml" />
+		<mapper resource="com/wave/mapping/selection.xml" />
+		<mapper resource="com/wave/mapping/user.xml" />
+		<mapper resource="com/wave/mapping/major.xml"/>
+		<mapper resource="com/wave/mapping/department.xml"/>
+		<mapper resource="com/wave/mapping/notification.xml"/>
+	</mappers>
+</configuration>	

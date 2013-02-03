@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wave.dao.NotificationsMapper" >
+  <resultMap id="BaseResultMap" type="com.wave.model.Notification" >
+    <id column="notificationid" property="notificationid" jdbcType="INTEGER" />
+    <result column="to_user" property="toUser" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="create_at" property="createAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="addNotifications">
+  		insert into theses_notifications (touser,title,content) values(#{touser},#{title},#{content});
+  </insert>
+   <insert id="addNotificationsUrl">
+  		insert into theses_notifications (touser,title,content,url) values(#{touser},#{title},#{content},#{url});
+  </insert>
+  <insert id="addNotificationsForDepartment">
+  insert into theses_notifications (to_user,title,content)
+		select userid as  to_user,#{title},#{content} from theses_users where department_id=#{department_id} and usertype=#{type};
+  </insert>
+   <insert id="addNotificationsUrlForDepartment">
+  insert into theses_notifications (to_user,title,content,url)
+		select userid as  to_user,#{title},#{content},#{url} from theses_users where department_id=#{department_id};
+  </insert>
+  <select id="queryAllNotifications">
+  	 select * from theses_notifications;
+  </select>
+   <select id="queryAllNotificationsById">
+  	 select * from theses_notifications where notificationid=#{notificationid};
+  </select>
+  <delete id="deleteNotificationsByDeptid">
+  	delete from theses_notifications where 
+  </delete>
+	
+</mapper>

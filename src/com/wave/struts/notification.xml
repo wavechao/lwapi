@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>	
+	
+	<package name="notification" namespace="/notification" extends="json-default">
+		<action name="create" class="com.wave.action.notification.AddNotificationForDepartmentAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		
+	</package>
+	
+</struts>    

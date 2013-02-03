@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>	
+	
+	<package name="theses" namespace="/theses" extends="json-default">
+		<action name="times" class="com.wave.action.theses.TimesAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="upload" class="com.wave.action.theses.UploadTestAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="create_title" class="com.wave.action.theses.CreateTitleAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="verify" class="com.wave.action.theses.VerifyAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="availables" class="com.wave.action.theses.AvailablesAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		
+		<action name="apply" class="com.wave.action.theses.ApplyAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		
+		<action name="waiting_reviews" class="com.wave.action.theses.Waiting_reviewsAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="choose" class="com.wave.action.theses.ChooseAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="current_show" class="com.wave.action.theses.CurrentShowAction" >
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		
+	</package>
+	
+</struts>    

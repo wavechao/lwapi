@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>	
+	
+	<!-- 其他配置文件 -->
+<include file="./com/wave/struts/users.xml"/>
+<include file="./com/wave/struts/user.xml"/>
+<include file="./com/wave/struts/teachers.xml"/>
+<include file="./com/wave/struts/departments.xml"/>
+<include file="./com/wave/struts/majors.xml"/>
+<include file="./com/wave/struts/major.xml"/>
+<include file="./com/wave/struts/theses.xml"/>
+<include file="./com/wave/struts/notification.xml"/>
+</struts>    
